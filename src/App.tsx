@@ -1,3 +1,29 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+
+/*
+unction App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Home />} />
+          <Route path="/settings" element={<Home />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
+  );
+}
+
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -33,3 +59,4 @@ function App() {
 }
 
 export default App
+*/
