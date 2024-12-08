@@ -1,6 +1,6 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { Box } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 
 type LayoutProps = {
   children: JSX.Element;
@@ -8,31 +8,27 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <CssBaseline />
       <Navbar />
       <Box
         component="main"
         sx={{
           flex: 1,
-          overflow: "auto",
+          width: "100%",
+          px: 3,
+          py: 2,
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "start",
         }}
       >
         {children}
-      
-      <Footer />
+
       </Box>
+      <Footer />
     </Box>
   );
 };
 
 export default Layout;
-
-/*      <CssBaseline />
-      <Navbar />
-      <Box height={"100vw"} width={"100vw"}>
-        <Box sx={{ width: "100%" }}>{children}</Box>
-        <Footer />
-      </Box>
-    </>*/

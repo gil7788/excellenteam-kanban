@@ -28,19 +28,29 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <Box sx={{ minHeight: "100%", width: "100vw"}}>
+      <Box sx={{ minHeight: "100%", width: "100vw" }}>
         <Box sx={{ p: 4 }}>
           <Container>
-            <Box sx={{display: 'flex', justifyContent: 'space-between', pb: 4, pl: 3, m: 1}}>
-            <Typography
-              variant="h5"
-              fontWeight="semi-bold"
-              color="text.secondary"
-              gutterBottom
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                pb: 4,
+                pl: 3,
+                m: 1,
+              }}
             >
-              Your Boards
-            </Typography>
-            <Button onClick={() => setModalOpen(true)} variant={'contained'}>Create new board</Button>
+              <Typography
+                variant="h5"
+                fontWeight="semi-bold"
+                color="text.secondary"
+                gutterBottom
+              >
+                Your Boards
+              </Typography>
+              <Button onClick={() => setModalOpen(true)} variant={"contained"}>
+                Create new board
+              </Button>
             </Box>
             <BoardList boards={boards} onDeleteBoard={handleDeleteBoard} />
           </Container>

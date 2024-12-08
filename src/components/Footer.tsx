@@ -1,23 +1,23 @@
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <Box position={"fixed"} bottom="0" width="100%" left="0" component="footer">
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          p: 1,
-          m: 1,
-        }}
-      >
-        <Typography>
-          &copy; MyApp |&nbsp;
-          <Link href="/">Home</Link> |&nbsp;
-          <Link href="/settings">Settings</Link> |&nbsp;
-          <Link href="/profile">Profile</Link>
-        </Typography>
-      </Box>
+    <Box
+      component="footer"
+      sx={{
+        bgcolor: "background.paper",
+        display: "flex",
+        justifyContent: "center",
+        p: 2.5,
+      }}
+    >
+      <Typography variant="subtitle1" color="textSecondary">
+        &copy; MyApp |&nbsp;
+        <Link to="/home">Home</Link> |&nbsp;
+        <Link to="/settings">Settings</Link> |&nbsp;
+        <Link to="/profile">Profile</Link>
+      </Typography>
     </Box>
   );
 };

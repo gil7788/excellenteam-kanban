@@ -1,17 +1,18 @@
 import { AppBar, Button, IconButton, Toolbar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton edge="start" color="inherit" href="/">
+        <IconButton component={Link} to={"/home"} edge="start" color="inherit">
           <HomeIcon />
         </IconButton>
-        <Button color="inherit" href="/settings">
+        <Button component={Link} to={"/settings"} color="inherit">
           Settings
         </Button>
-        <Button color="inherit" href="/profile">
+        <Button component={Link} to={"/profile"} color="inherit">
           Profile
         </Button>
       </Toolbar>
