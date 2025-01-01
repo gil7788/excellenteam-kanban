@@ -1,11 +1,13 @@
 import React from "react";
 import Layout from "../../layout";
-import SettingMenu from "../../components/SettingMenu";
+import SettingsMenu from "../../components/SettingsMenu";
+import Footer from "../../components/Footer";
 
 const Settings: React.FC = () => {
   return (
     <Layout>
-      <SettingMenu />
+      <SettingsMenu />
+      <Footer />
     </Layout>
   );
 };

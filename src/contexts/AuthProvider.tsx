@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, PropsWithChildren } from "react";
-import { User } from "../types";
+import { User } from "../types/types";
 
 type AuthContextProps = {
   isAuthorized: boolean;

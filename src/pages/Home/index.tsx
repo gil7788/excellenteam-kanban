@@ -1,44 +1,47 @@
-import React, { useState } from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, Typography, Grid2 as Grid } from "@mui/material";
 import BoardList from "./BoardList";
 import CreateBoardModal from "./CreateBoardModal";
 import Layout from "../../layout";
-import { Board } from "../../types";
+import { BoardMetadata } from "../../types/types";
+import { useBoardsList } from "../../hooks/useBoardsList";
+import Footer from "../../components/Footer";
 
-const Home: React.FC = () => {
-  const [boards, setBoards] = useState<Board[]>([
-    { id: 1, title: "Project A", created_at: Date.now().toString(), items: [] },
-    { id: 2, title: "Project B", created_at: Date.now().toString(), items: [] },
-  ]);
+const Home = () => {
+  const { boards, addBoard, deleteBoard } = useBoardsList();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleCreateBoard = async (title: string) => {
-    const newBoard: Board = {
-      id: boards.length + 1,
+  const handleCreateBoard = (title: string) => {
+    const newBoard: BoardMetadata = {
+      id: Date.now().toString(),
       title,
-      created_at: Date.now().toString(),
-      items: [],
+      createdAt: new Date().toISOString(),
     };
-    setBoards([...boards, newBoard]);
+    addBoard(newBoard);
   };
 
-  const handleDeleteBoard = async (id: number) => {
-    setBoards((prev) => prev.filter((board) => board.id !== id));
+  const handleDeleteBoard = (id: string) => {
+    deleteBoard(id);
   };
 
   return (
     <Layout>
-      <Box sx={{ minHeight: "100%", width: "100vw" }}>
-        <Box sx={{ p: 4 }}>
-          <Container>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                pb: 4,
-                pl: 3,
-                m: 1,
-              }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: (theme) =>
+            `calc(100vh - ${theme.heightVariants.navBarHeight})`,
+          overflowX: "hidden",
+          overflowY: "auto",
+        }}
+      >
+        <Box sx={{ flex: 1, px: 2, m: 4 }}>
+          <Grid container spacing={3}>
+            <Grid
+              container
+              size={{ xs: 12 }}
+              sx={{ justifyContent: "space-between" }}
             >
               <Typography
                 variant="h5"
@@ -48,42 +51,27 @@ const Home: React.FC = () => {
               >
                 Your Boards
               </Typography>
-              <Button onClick={() => setModalOpen(true)} variant={"contained"}>
+              <Button onClick={() => setModalOpen(true)} variant="contained">
                 Create new board
               </Button>
-            </Box>
-            <BoardList boards={boards} onDeleteBoard={handleDeleteBoard} />
-          </Container>
+            </Grid>
+
+            <Grid size={{ xs: 12 }}>
+              <BoardList boards={boards} onDeleteBoard={handleDeleteBoard} />
+            </Grid>
+          </Grid>
         </Box>
 
-        <CreateBoardModal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          onCreate={handleCreateBoard}
-        />
+        <Footer />
       </Box>
-    </Layout>
-  );
-};
 
-export default Home;
-
-{
-  /*<Layout>
-      <Box display="flex" height="100vh" width="100vw">
-        <Container>
-          <Typography variant="h6" sx={{ marginBottom: 2 }}>
-            Your Boards
-          </Typography>
-          <Button onClick={() => setModalOpen(true)}>new board</Button>
-
-          <BoardList boards={boards} onDeleteBoard={handleDeleteBoard} />
-        </Container>
-      </Box>
       <CreateBoardModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onCreate={handleCreateBoard}
       />
-    </Layout> */
-}
+    </Layout>
+  );
+};
+
+export default Home;

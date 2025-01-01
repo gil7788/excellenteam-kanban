@@ -9,6 +9,7 @@ import Profile from "../pages/Profile";
 //import Register from "../pages/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Login from "../pages/Login";
+import DashBoard from "../pages/DashBoard";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
         <Route path="home" element={<Home />} />
         <Route path="settings" element={<Settings />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="dashboard/:boardId" element={<DashBoard />} />
       </Route>
     </Route>
   )

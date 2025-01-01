@@ -1,0 +1,62 @@
+// Colors
+$primary-color: #2196f3;
+$secondary-color: #673ab7;
+$background-color: #ffffff;
+
+// Color shades using color module
+$primary-light: lighten($primary-color, 15%);
+$primary-dark: darken($primary-color, 15%);
+$secondary-light: lighten($secondary-color, 15%);
+$secondary-dark: darken($secondary-color, 15%);
+
+// Layout measurements
+$spacing-unit: 1rem;
+$navbar-height: 4rem;
+$footer-height: 3rem;
+$sidebar-width: 15rem;
+$card-padding: 1rem;
+
+// // Board dimensions
+// $list-width: 18rem;
+// $list-gap: 1rem;
+// $card-radius: 0.5rem;
+
+// // Z-index layers
+// $z-index: (
+//   modal: 1000,
+//   dropdown: 500,
+//   header: 100,
+//   default: 1,
+// );
+
+// // Breakpoints
+// $breakpoints: (
+//   small: 20rem,
+//   medium: 48rem,
+//   large: 64rem,
+//   xlarge: 80rem,
+// );
+
+// // Typography
+// $font-sizes: (
+//   small: 0.875rem,
+//   medium: 1rem,
+//   large: 1.25rem,
+//   xlarge: 1.5rem,
+// );
+
+// Export variables for TypeScript
+:export {
+  primaryColor: $primary-color;
+  secondaryColor: $secondary-color;
+  backgroundColor: $background-color;
+  primaryLight: $primary-light;
+  primaryDark: $primary-dark;
+  secondaryLight: $secondary-light;
+  secondaryDark: $secondary-dark;
+  spacingUnit: $spacing-unit;
+  navbarHeight: $navbar-height;
+  footerHeight: $footer-height;
+  sidebarWidth: $sidebar-width;
+  cardPadding: $card-padding;
+}

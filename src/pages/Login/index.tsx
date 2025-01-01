@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault(); // prevent form reload
+    e.preventDefault();
     login(email, password);
     navigate("/home", { replace: true });
   };
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
         <Box
           component="form"
           sx={{
-            width: 1, // Fix IE 11 issue.
+            width: 1,
             mt: 3,
           }}
           noValidate
