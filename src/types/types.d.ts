@@ -12,6 +12,7 @@ export type Board = {
   //createdAt: string;
   lists: List[];
   //color: string;
+  tags: Tag[];
 } & BoardMetadata;
 
 export type BoardMetadata = {
@@ -38,7 +39,7 @@ export type Card = {
   createdAt: string;
   //updatedAt: string;
   dueDate: string;
-  tags: Tag[];
+  tagIds: string[];
 };
 
 export type Tag = {

@@ -1,17 +1,25 @@
 import useLocalStorage from "./useLocalStorage";
-import { Board, BoardMetadata } from "../types/types";
+import { Board, BoardMetadata, Tag } from "../types/types";
+
+const DEFAULT_TAGS: Tag[] = [
+  { id: "tag-1", label: "Urgent", color: "#DC2626" },
+  { id: "tag-2", label: "Bug", color: "#EA580C" },
+  { id: "tag-3", label: "Feature", color: "#16A34A" },
+  { id: "tag-4", label: "Low Priority", color: "#2563EB" },
+];
 
 export function useBoardsList() {
   const [boards, setBoards] = useLocalStorage<BoardMetadata[]>("boards", []);
 
   const addBoard = (newBoard: BoardMetadata) => {
     setBoards((prevBoards) => [...prevBoards, newBoard]);
-    
+
     // Create entry for the new board
     try {
       const initialBoardData: Board = {
         ...newBoard,
         lists: [],
+        tags: DEFAULT_TAGS,
       };
       localStorage.setItem(
         `board-${newBoard.id}`,

@@ -1,8 +1,5 @@
 import {
-  Autocomplete,
   Button,
-  Checkbox,
-  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -14,40 +11,32 @@ import { Card as CardType, Tag } from "../types/types";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { enGB } from "date-fns/locale";
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
-
-const availableTags: Tag[] = [
-  { id: "1", label: "Urgent", color: "#ff0000" },
-  { id: "2", label: "Bug", color: "#ffa500" },
-  { id: "3", label: "Feature", color: "#00ff00" },
-  { id: "4", label: "Urgent2", color: "#ff0000" },
-  { id: "5", label: "Bug2", color: "#ffa500" },
-  { id: "6", label: "Feature2", color: "#00ff00" },
-  { id: "7", label: "Urgent3", color: "#ff0000" },
-  { id: "8", label: "Bug3", color: "#ffa500" },
-  { id: "9", label: "Feature3", color: "#00ff00" },
-];
+import { useBoard } from "../hooks/useBoard";
+import { TagSelector } from "./TagSelector";
 
 interface CardCreationFormProps {
+  boardId: string;
   open: boolean;
   onClose: () => void;
   onSubmit: (card: CardType) => void;
 }
 
 const CardCreationForm = (props: CardCreationFormProps) => {
-  const { open, onClose, onSubmit } = props;
+  const { open, onClose, onSubmit, boardId } = props;
+  const { board, addTag, updateTag } = useBoard(boardId);
+
   const initialCardData: CardType = {
     id: Date.now().toString(),
     title: "",
     description: "",
     createdAt: new Date().toISOString(),
     dueDate: "",
-    tags: [],
+    tagIds: [],
   };
 
   const [cardData, setCardData] = useState(initialCardData);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,23 +47,31 @@ const CardCreationForm = (props: CardCreationFormProps) => {
 
   const handleDateChange = (newValue: Date | null) => {
     setSelectedDate(newValue);
-    const newSelectedDate = newValue ? newValue.toISOString() : "";
-    setCardData({ ...cardData, dueDate: newSelectedDate });
+    //const newSelectedDate = newValue ? newValue.toISOString() : "";
+    //setCardData({ ...cardData, dueDate: newSelectedDate });
   };
 
-  // const handleTagsChange(newValue) => {
-  //   setSelectedTags((prev) => [...prev, newValue])
-  // }
-  
+  const handleAddTag = (tagData: Omit<Tag, "id">) => {
+    const newTag: Tag = { id: `tag-${Date.now()}`, ...tagData };
+    addTag(newTag);
+    setSelectedTagIds((prev) => [...prev, newTag.id]);
+  };
+
   const handleClose = () => {
     onClose();
     setCardData(initialCardData);
     setSelectedDate(null);
+    setSelectedTagIds([]);
   };
 
   const handleSubmit = () => {
     if (cardData.title.trim()) {
-      onSubmit(cardData);
+      const newCard: CardType = {
+        ...cardData,
+        tagIds: selectedTagIds,
+        dueDate: selectedDate?.toISOString() || "",
+      };
+      onSubmit(newCard);
       handleClose();
     }
   };
@@ -83,7 +80,6 @@ const CardCreationForm = (props: CardCreationFormProps) => {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add new card</DialogTitle>
       <DialogContent>
-
         {/* Title */}
         <TextField
           label="Title"
@@ -126,49 +122,19 @@ const CardCreationForm = (props: CardCreationFormProps) => {
         </LocalizationProvider>
 
         {/* Tags */}
-        <Autocomplete
-          multiple
-          options={availableTags}
-          disableCloseOnSelect
-          getOptionLabel={(option: Tag) => option.label}
-          value={selectedTags}
-          onChange={(_event, newValue) => setSelectedTags(newValue)}
-          renderTags={(value, getTagProps) =>
-            value.map((option, index) => {
-              const { key, ...tagProps } = getTagProps({ index });
-              return (
-                <Chip
-                  key={key}
-                  label={option.label}
-                  style={{ backgroundColor: option.color, color: "white" }}
-                  {...tagProps}
-                />
-              );
-            })
-          }
-          renderOption={(props, option, { selected }) => {
-            const { key, ...optionProps } = props;
-            return (
-              <li key={key} {...optionProps}>
-                <Checkbox
-                  icon={<CheckBoxOutlineBlank fontSize="small"/>}
-                  checkedIcon={<CheckBox fontSize="small"/>}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
-                {option.label}
-              </li>
-            );
-          }}
-          renderInput={(params) => <TextField margin="normal" {...params} label="Tags" />}
+        <TagSelector
+          availableTags={board?.tags || []}
+          selectedTagIds={selectedTagIds}
+          onChange={setSelectedTagIds}
+          onAddTag={handleAddTag}
+          onUpdateTag={updateTag}
         />
-        
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} variant="outlined">
           Cancel
         </Button>
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+        <Button onClick={handleSubmit} variant="contained" disabled={!cardData.title.trim()}>
           Save
         </Button>
       </DialogActions>

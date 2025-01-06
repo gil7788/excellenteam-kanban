@@ -69,6 +69,7 @@ const Card = (props: CardProps) => {
         fullWidth
       > */}
       <ExpandedCard
+        boardId={boardId}
         card={card}
         open={openDialog}
         onClose={handleCloseDialog}

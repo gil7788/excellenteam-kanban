@@ -1,5 +1,12 @@
 import { Add, CloseRounded } from "@mui/icons-material";
-import { alpha, Button, IconButton, Paper, TextField } from "@mui/material";
+import {
+  alpha,
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
 import { useBoard } from "../hooks/useBoard";
 import { List as ListType } from "../types/types";
@@ -41,9 +48,14 @@ const AddNewList = ({ boardId }: AddNewListProps) => {
   // enable editing
   const handleOpen = () => {
     setIsAddingList(true);
-    // setTimeout(() => {
+  };
 
-    // });
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    } else if (e.key === "Escape") {
+      handleClose();
+    }
   };
 
   return isAddingList ? (
@@ -51,9 +63,13 @@ const AddNewList = ({ boardId }: AddNewListProps) => {
       elevation={0}
       sx={{
         minWidth: 250,
+        maxWidth: 250,
+        borderRadius: 2,
         p: 1,
         bgcolor: (theme) =>
-          theme.palette.mode === "light" ? "#ececec" : theme.palette.background.paper,
+          theme.palette.mode === "light"
+            ? "#ececec"
+            : theme.palette.background.paper,
       }}
     >
       <TextField
@@ -62,23 +78,38 @@ const AddNewList = ({ boardId }: AddNewListProps) => {
         color="primary"
         value={newListTitle}
         onChange={(e) => setNewListTitle(e.target.value)}
+        onKeyDown={handleKeyDown}
         size="small"
         margin="dense"
         fullWidth
         autoFocus
+        sx={{
+          bgcolor: (theme) =>
+            theme.palette.mode === "light"
+              ? "white"
+              : theme.palette.background.paper,
+        }}
       />
-      <Button variant="contained" sx={{ mt: 1 }} onClick={handleSubmit}>
-        Add list
-      </Button>
-      <IconButton onClick={handleClose} sx={{ mt: 1 }}>
-        <CloseRounded />
-      </IconButton>
+      <Box sx={{ display: "flex", alignItems: "center", mt: 1, gap: 1 }}>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={!newListTitle.trim()}
+        >
+          Add list
+        </Button>
+        <IconButton onClick={handleClose} size="small">
+          <CloseRounded />
+        </IconButton>
+      </Box>
     </Paper>
   ) : (
     <Paper
       elevation={0}
       sx={{
         minWidth: 250,
+        maxWidth: 250,
+        borderRadius: 2,
         bgcolor: (theme) =>
           theme.palette.mode === "light"
             ? alpha("#ececec", 0.5)

@@ -62,6 +62,7 @@ const List = (props: ListProps) => {
       elevation={0}
       sx={{
         minWidth: 250,
+        maxWidth: 250,
         borderRadius: 2,
         overflow: "hidden",
         display: "flex",
@@ -162,6 +163,7 @@ const List = (props: ListProps) => {
       </Box>
 
       <CardCreationForm
+        boardId={boardId}
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onSubmit={handleAddCard}
