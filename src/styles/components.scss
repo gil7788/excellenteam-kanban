@@ -1,0 +1,91 @@
+// @import "./variables";
+
+// .kanban-board {
+//   height: calc(100vh - #{$navbar-height} - #{$footer-height});
+//   padding: $spacing-unit;
+//   background-color: $background-color;
+//   overflow-x: auto;
+
+//   .lists-container {
+//     display: flex;
+//     gap: $list-gap;
+//     height: 100%;
+//     min-width: calc(#{$list-width} * 3 + #{$list-gap} * 2);
+//   }
+
+//   .list {
+//     flex: 0 0 $list-width;
+//     display: flex;
+//     flex-direction: list;
+//     background-color: lighten($background-color, 5%);
+//     border-radius: $card-radius;
+
+//     .list-header {
+//       padding: $card-padding;
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       background-color: $primary-light;
+//       color: white;
+//       border-top-left-radius: $card-radius;
+//       border-top-right-radius: $card-radius;
+//     }
+
+//     .card-list {
+//       flex: 1;
+//       padding: $card-padding;
+//       overflow-y: auto;
+
+//       // Custom scrollbar
+//       &::-webkit-scrollbar {
+//         width: 0.5rem;
+//       }
+
+//       &::-webkit-scrollbar-track {
+//         background: lighten($background-color, 2%);
+//       }
+
+//       &::-webkit-scrollbar-thumb {
+//         background: $primary-color;
+//         border-radius: 0.25rem;
+//       }
+//     }
+
+//     .list-footer {
+
+//     }
+//   }
+
+//   .card {
+//     margin-bottom: $spacing-unit;
+//     background-color: white;
+
+//     &:hover {
+//       box-shadow: 0 0.25rem 0.5rem rgba($primary-dark, 0.2);
+//       transform: translateY(-0.125rem);
+//       transition: all 0.2s ease;
+//     }
+//   }
+
+//   .add-button {
+//     color: white;
+
+//     &:hover {
+//       background-color: rgba(white, 0.1);
+//     }
+//   }
+
+//   // Responsive design
+//   @media screen and (max-width: map-get($breakpoints, medium)) {
+//     .lists-container {
+//       flex-direction: list;
+//       min-width: unset;
+//       height: auto;
+//     }
+
+//     .list {
+//       width: 100%;
+//       margin-bottom: $spacing-unit;
+//     }
+//   }
+// }
