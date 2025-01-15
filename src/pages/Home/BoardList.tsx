@@ -21,7 +21,13 @@ const BoardList = (props: BoardListProps) => {
     <Grid container spacing={2}>
       {boards.map((board) => (
         <Grid columns={{ xs: 2, sm: 3, md: 4 }} key={board.id}>
-          <Card sx={{ width: 200 }}>
+          <Card
+            sx={{
+              width: 200,
+              border: 3,
+              borderColor: board.color || "background.paper",
+            }}
+          >
             <CardContent>
               <Typography variant="h6">{board.title}</Typography>
             </CardContent>

@@ -26,6 +26,9 @@ const KanbanBoardMenuBar: React.FC<KanbanBoardMenuBarProps> = ({ boardId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputWidth, setInputWidth] = useState(0);
   const measureRef = useRef<HTMLSpanElement>(null);
+  // const [filteredLists, setFilteredLists] = useState<
+  //   { listId: string; cards: CardType[] }[]
+  // >([]);
 
   useEffect(() => {
     if (measureRef.current && title) {
@@ -33,6 +36,8 @@ const KanbanBoardMenuBar: React.FC<KanbanBoardMenuBarProps> = ({ boardId }) => {
       setInputWidth(width + 16);
     }
   }, [title]);
+
+  if (!board) return <div>Error board not found</div>;
 
   const toggleFavorite = () => setIsFavorite((prev) => !prev);
 
@@ -54,10 +59,60 @@ const KanbanBoardMenuBar: React.FC<KanbanBoardMenuBarProps> = ({ boardId }) => {
     updateBoard({ updatedMetadata: { title: title } });
   };
 
+  // const handleFilteredCardsChange = (
+  //   filtered: { listId: string; cards: CardType[] }[]
+  // ) => {
+  //   setFilteredLists(filtered);
+  // };
+  // const handleFilterChange = (filters: FilterObject) => {
+  //   // Apply the filters to your cards
+  //   const filteredCards = cards.filter((card) => {
+  //     // Keyword match
+  //     const keywordMatch = filters.keyword
+  //       ? card.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+  //         card.description.toLowerCase().includes(filters.keyword.toLowerCase())
+  //       : true;
+
+  //     // Due date match
+  //     const dueDateMatch =
+  //       filters.dueDate.length === 0
+  //         ? true
+  //         : filters.dueDate.some((dateFilter) => {
+  //             switch (dateFilter) {
+  //               case "noDate":
+  //                 return !card.dueDate;
+  //               case "overdue":
+  //                 return card.dueDate && new Date(card.dueDate) < new Date();
+  //               case "nextDay": {
+  //                 const tomorrow = new Date();
+  //                 tomorrow.setDate(tomorrow.getDate() + 1);
+  //                 return card.dueDate && new Date(card.dueDate) <= tomorrow;
+  //               }
+  //               default:
+  //                 return true;
+  //             }
+  //           });
+  //     // Labels match
+  //     const labelMatch =
+  //       filters.labels.length === 0
+  //         ? true
+  //         : filters.match === "any"
+  //         ? card.tagIds.some((id) => filters.labels.includes(id))
+  //         : filters.labels.every((id) => card.tagIds.includes(id));
+
+  //     return filters.match === "any"
+  //       ? keywordMatch || dueDateMatch || labelMatch
+  //       : keywordMatch && dueDateMatch && labelMatch;
+  //   });
+
+  //   setFilteredCards(filteredCards);
+  // };
+
   return (
     <Toolbar
       sx={{
         height: (theme) => theme.heightVariants.boardBarHeight,
+        //bgcolor: board?.color || "background.default",
         // overflowX: "auto",
         // "&::-webkit-scrollbar-track": {
         //   m: 2,
@@ -125,7 +180,7 @@ const KanbanBoardMenuBar: React.FC<KanbanBoardMenuBarProps> = ({ boardId }) => {
           }}
         />
       )}
-      
+
       {/* Toggle Favorite */}
       <IconButton onClick={toggleFavorite} size="small" sx={{ ml: 1 }}>
         {isFavorite ? <StarRounded color="primary" /> : <StarBorderRounded />}
@@ -153,7 +208,12 @@ const KanbanBoardMenuBar: React.FC<KanbanBoardMenuBarProps> = ({ boardId }) => {
           "aria-labelledby": "filter-menu-button",
         }}
       >
-        <FilterMenu />
+        <FilterMenu
+          board={board}
+          // onFilteredCardsChange={handleFilteredCardsChange}
+          // tags={board?.tags || []}
+          // onFilterChange={handleFilterChange}
+        />
       </Menu>
     </Toolbar>
   );

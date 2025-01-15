@@ -6,12 +6,7 @@ export type User = {
 };
 
 export type Board = {
-  //id: string;
-  //user_id: string;
-  //title: string;
-  //createdAt: string;
   lists: List[];
-  //color: string;
   tags: Tag[];
 } & BoardMetadata;
 
@@ -20,7 +15,7 @@ export type BoardMetadata = {
   //user_id: string;
   title: string;
   createdAt: string;
-  //color: string;
+  color: string;
 };
 
 export type List = {

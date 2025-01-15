@@ -272,6 +272,7 @@ const KanbanBoard = ({ boardId }: KanbanBoardProps) => {
         height: (theme) => theme.heightVariants.boardContentHeight,
         overflowX: "auto",
         overflowY: "hidden",
+        //bgcolor: board?.color || "background.default",
       }}
     >
       <Stack

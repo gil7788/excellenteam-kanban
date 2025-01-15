@@ -17,7 +17,7 @@ export const mockBoard: Board[] = [
             description: "This is a sample task.",
             createdAt: new Date(2024, 11, 5).toISOString(),
             dueDate: new Date(2025, 3, 1).toISOString(),
-            tags: [],
+            tagIds: [],
           },
           {
             id: "card-2",
@@ -25,7 +25,7 @@ export const mockBoard: Board[] = [
             description: "Another sample task.",
             createdAt: new Date(2024, 11, 6).toISOString(),
             dueDate: new Date(2025, 10, 1).toISOString(),
-            tags: [],
+            tagIds: [],
           },
         ],
       },
@@ -42,5 +42,7 @@ export const mockBoard: Board[] = [
         cards: [],
       },
     ],
+    tags: [],
+    color: "",
   },
 ];

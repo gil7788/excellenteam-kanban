@@ -11,11 +11,12 @@ const Home = () => {
   const { boards, addBoard, deleteBoard } = useBoardsList();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleCreateBoard = (title: string) => {
+  const handleCreateBoard = (title: string, color: string) => {
     const newBoard: BoardMetadata = {
       id: Date.now().toString(),
       title,
       createdAt: new Date().toISOString(),
+      color,
     };
     addBoard(newBoard);
   };
